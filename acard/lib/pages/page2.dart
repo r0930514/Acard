@@ -8,49 +8,71 @@ class page2 extends StatefulWidget {
   _page2State createState() => _page2State();
 }
 
+Future<Album> fetchAlbum() async {
+  final response = await http.get(Uri.parse(
+    'https://jsonplaceholder.typicode.com/todos/1',
+  ));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return Album.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    print(response.statusCode);
+    throw Exception('Failed to load album');
+  }
+}
+
 class _page2State extends State<page2> {
-  //資料獲取與解碼
-  final String host =
-      'https://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/Taipei?$format=json';
-  static get format => null;
-  //getData Funtion
-  Future getData() async {
-    return await http.get(Uri.parse(host)); // http 0.13 後不能直接輸入 string
+  late Future<Album> futureAlbum;
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = fetchAlbum();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('第二頁'),
-      ),
-      body: FutureBuilder(
-        future: getData(), // 執行 http
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          // snapshot 抓資料，若有資料則:
-          if (snapshot.hasData) {
-            // jsonDecode 解壓
-            List datas = jsonDecode(snapshot.data.body);
-            //print(datas);
-            return ListView.builder(
-                itemCount: datas.length,
-                itemBuilder: (context, idx) {
-                  var data = datas[idx];
-                  print(data);
-                  return ListTile(
-                    title: Text(data['PlateNumb']),
-                    subtitle: Text(data['GPSTime']),
-                  );
-                });
-          } else if (snapshot.hasError) {
-            print('Error: ${snapshot.error}');
-            return Container(); // 失敗回傳空資料
-          } else {
-            print('Awaiting result...');
-            return Container();
-          }
-        },
-      ),
+        appBar: AppBar(
+          title: Text('第二頁'),
+        ),
+        body: Center(
+          child: FutureBuilder<Album>(
+            future: futureAlbum,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.title);
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
+            },
+          ),
+        ));
+  }
+}
+
+class Album {
+  final int userId;
+  final int id;
+  final String title;
+
+  Album({
+    required this.userId,
+    required this.id,
+    required this.title,
+  });
+
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
     );
   }
 }

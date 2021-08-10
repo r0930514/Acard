@@ -121,7 +121,7 @@ class Myhomepage2 extends StatelessWidget {
               children: [
                 const ListTile(
                   leading: Icon(Icons.device_hub),
-                  title: Text('API測試頁面'),
+                  title: Text('FAKE API測試頁面'),
                   subtitle: Text('頁面跳轉至page2'),
                 ),
                 TextButton(

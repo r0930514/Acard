@@ -1,9 +1,6 @@
+import 'package:acard/pages/page2.dart';
 import 'package:flutter/material.dart';
 import 'pages/page1.dart';
-// ignore: unused_import
-import 'package:http/http.dart';
-// ignore: unused_import
-import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,8 +28,6 @@ final snackBar = new SnackBar(
     onPressed: () {},
   ),
 );
-
-void dialog() => {};
 
 class Myhomepage2 extends StatelessWidget {
   @override
@@ -126,14 +121,15 @@ class Myhomepage2 extends StatelessWidget {
               children: [
                 const ListTile(
                   leading: Icon(Icons.device_hub),
-                  title: Text('卡片式排列'),
-                  subtitle: Text('這是一個測試'),
+                  title: Text('API測試頁面'),
+                  subtitle: Text('頁面跳轉至page2'),
                 ),
                 TextButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => page2()));
                   },
-                  child: Text('測試鍵'),
+                  child: Text('跳轉'),
                 ),
                 SizedBox(
                   height: 10,
@@ -150,7 +146,9 @@ class Myhomepage2 extends StatelessWidget {
                   subtitle: Text('這也是一個測試'),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
                   child: Text('沒有任何作用的按鈕'),
                 ),
                 SizedBox(

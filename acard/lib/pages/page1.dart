@@ -13,7 +13,7 @@ class page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('第二頁'),
+        title: Text('第一頁'),
       ),
       body: Center(
         child: Column(

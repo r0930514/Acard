@@ -23,14 +23,21 @@ Future<WeatherJson> getJson() async {
 class WeatherJson {
   final String name;
   final String rainyValue;
+  final String temperature;
 
-  WeatherJson({required this.name, required this.rainyValue});
+  WeatherJson({
+    required this.name,
+    required this.rainyValue,
+    required this.temperature,
+  });
   factory WeatherJson.fromJson(Map<String, dynamic> weatherJsonData) {
     return WeatherJson(
         name: weatherJsonData['records']['locations'][0]['location'][4]
             ['locationName'],
         rainyValue: weatherJsonData['records']['locations'][0]['location'][4]
-            ['weatherElement'][0]['time'][0]['elementValue'][0]['value']);
+            ['weatherElement'][0]['time'][0]['elementValue'][0]['value'],
+        temperature: weatherJsonData['records']['locations'][0]['location'][4]
+            ['weatherElement'][3]['time'][0]['elementValue'][0]['value']);
   }
 }
 
@@ -58,8 +65,14 @@ class _Page3State extends State<Page3> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListTile(
-                  title: Text('臺北市' + snapshot.data!.name + ' 未來12小時降雨機率'),
-                  subtitle: Text(snapshot.data!.rainyValue + '%'),
+                  leading: Icon(Icons.cloud),
+                  title: Text('臺北市' + snapshot.data!.name + ' 天氣狀況'),
+                  subtitle: Text('降雨機率' +
+                      snapshot.data!.rainyValue +
+                      '%、' +
+                      '溫度' +
+                      snapshot.data!.temperature +
+                      '度'),
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');

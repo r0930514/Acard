@@ -81,7 +81,7 @@ class Myhomepage2 extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => page1()));
+                          MaterialPageRoute(builder: (context) => Page1()));
                     },
                     child: Text('跳轉至Page_1'),
                   ),
@@ -102,7 +102,7 @@ class Myhomepage2 extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => page2()));
+                          MaterialPageRoute(builder: (context) => Page2()));
                     },
                     child: Text('跳轉至Page_2'),
                   ),
@@ -123,7 +123,7 @@ class Myhomepage2 extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => page3()));
+                          MaterialPageRoute(builder: (context) => Page3()));
                     },
                     child: Text('跳轉至Page_3'),
                   ),
@@ -144,7 +144,7 @@ class Myhomepage2 extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => page1()));
+                          MaterialPageRoute(builder: (context) => Page1()));
                     },
                     child: Text('跳轉至Page_4'),
                   ),
@@ -165,7 +165,7 @@ class Myhomepage2 extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => page1()));
+                          MaterialPageRoute(builder: (context) => Page1()));
                     },
                     child: Text('跳轉至Page_5'),
                   ),

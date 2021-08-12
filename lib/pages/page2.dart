@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-class page2 extends StatefulWidget {
+class Page2 extends StatefulWidget {
   @override
-  _page2State createState() => _page2State();
+  _Page2State createState() => _Page2State();
 }
 
 Future<Album> fetchAlbum() async {
@@ -25,7 +25,7 @@ Future<Album> fetchAlbum() async {
   }
 }
 
-class _page2State extends State<page2> {
+class _Page2State extends State<Page2> {
   late Future<Album> futureAlbum;
   @override
   void initState() {

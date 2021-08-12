@@ -1,6 +1,7 @@
-import 'package:acard/pages/page2.dart';
-import 'package:flutter/material.dart';
 import 'pages/page1.dart';
+import 'pages/page2.dart';
+import 'pages/page3.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,20 +22,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final snackBar = new SnackBar(
-  content: Text('Text'),
-  action: SnackBarAction(
-    label: '關閉',
-    onPressed: () {},
-  ),
-);
-
 class Myhomepage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('這是白色的程式'),
+        title: Text('首頁'),
       ),
       drawer: Drawer(
         child: ListView(children: [
@@ -56,32 +49,6 @@ class Myhomepage2 extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.green),
           ),
           ListTile(
-            leading: Icon(Icons.light),
-            title: Text('揭曉答案'),
-            onTap: () {
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('答案揭曉！！乁( ˙ ω˙乁) '),
-                  content: Text('今天天氣還不錯嘛'),
-                  actions: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          textStyle: const TextStyle(
-                        fontSize: 15,
-                      )),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text('確認'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.book_outlined),
             title: Text('頁面跳轉'),
             onTap: () {
@@ -99,11 +66,9 @@ class Myhomepage2 extends StatelessWidget {
               showAboutDialog(
                 context: context,
                 applicationIcon: Icon(Icons.face),
-                applicationVersion: 'Alpha 1.0',
+                applicationVersion: 'v20210812-Alpha',
                 children: [
                   Text('本應用程式為測試用途'),
-                  Text('實際上可能連Alpha都沒有'),
-                  Text('因為我根本就不知道這個APP要幹嘛')
                 ],
               );
             },
@@ -120,16 +85,16 @@ class Myhomepage2 extends StatelessWidget {
             child: Column(
               children: [
                 const ListTile(
-                  leading: Icon(Icons.device_hub),
-                  title: Text('FAKE API測試頁面'),
-                  subtitle: Text('頁面跳轉至page2'),
+                  leading: Icon(Icons.http),
+                  title: Text('JsonPlaceHolder API 實驗'),
+                  subtitle: Text('已完成'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => page2()));
                   },
-                  child: Text('跳轉'),
+                  child: Text('跳轉至Page_2'),
                 ),
                 SizedBox(
                   height: 10,
@@ -141,15 +106,16 @@ class Myhomepage2 extends StatelessWidget {
             child: Column(
               children: [
                 const ListTile(
-                  leading: Icon(Icons.question_answer_outlined),
-                  title: Text('這邊我不知道要幹嘛(｡•́︿•̀｡)'),
-                  subtitle: Text('這也是一個測試'),
+                  leading: Icon(Icons.cloud),
+                  title: Text('天氣API 實驗'),
+                  subtitle: Text('尚未完成'),
                 ),
                 TextButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => page3()));
                   },
-                  child: Text('沒有任何作用的按鈕'),
+                  child: Text('跳轉至Page_3'),
                 ),
                 SizedBox(
                   height: 10,

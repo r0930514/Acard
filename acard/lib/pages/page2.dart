@@ -37,7 +37,7 @@ class _page2State extends State<page2> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('第二頁'),
+          title: Text('JsonPlaceHolder API 實驗'),
         ),
         body: Center(
           child: FutureBuilder<Album>(

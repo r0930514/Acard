@@ -57,7 +57,7 @@ class Myhomepage2 extends StatelessWidget {
                 showAboutDialog(
                   context: context,
                   applicationIcon: Icon(Icons.face),
-                  applicationVersion: 'v20210812-Alpha',
+                  applicationVersion: 'v20210813-Alpha',
                   children: [
                     Text('本應用程式為測試用途'),
                   ],

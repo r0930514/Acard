@@ -75,11 +75,33 @@ class Myhomepage2 extends StatelessWidget {
           )
         ]),
       ),
+      //首頁的卡片
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             height: 10,
+          ),
+          Card(
+            child: Column(
+              children: [
+                const ListTile(
+                  leading: Icon(Icons.looks_one),
+                  title: Text('奇數偶數分辨器'),
+                  subtitle: Text('已完成'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => page1()));
+                  },
+                  child: Text('跳轉至Page_1'),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
           ),
           Card(
             child: Column(

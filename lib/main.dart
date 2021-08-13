@@ -120,9 +120,9 @@ class HomeMenu extends StatelessWidget {
           child: Column(
             children: [
               const ListTile(
-                leading: Icon(Icons.looks_4),
-                title: Text('Page_4'),
-                subtitle: Text('未完成'),
+                leading: Icon(Icons.list),
+                title: Text('ListViewBuilder 實作'),
+                subtitle: Text('已完成'),
               ),
               TextButton(
                 onPressed: () {

@@ -1,0 +1,30 @@
+Column(
+            children: [
+              ListTile(
+                leading: Icon(weatherIcon),
+                title: Text('新北市' +
+                    snapshot.data!.name +
+                    ' 現在' +
+                    snapshot.data!.weatherWx),
+                subtitle: Text('降雨機率' +
+                    snapshot.data!.rainyValue +
+                    '%、' +
+                    '溫度' +
+                    snapshot.data!.temperature +
+                    '度'),
+              ),
+            ],
+          )
+
+ListView.builder(
+            itemBuilder: (context, index) {
+              var temp = snapshot.data!.locations[index]['locationName'];
+              Card(
+                child: Container(
+                  height: 30,
+                  child: Text(temp),
+                ),
+              );
+            },
+            itemCount: snapshot.data!.locations.length,
+          )          

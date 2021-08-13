@@ -35,12 +35,7 @@ class _Page3State extends State<Page3> {
       appBar: AppBar(
         title: Text('天氣API 實驗'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ListWeatherWidget(futureJson: futureJson),
-        ],
-      ),
+      body: ListWeatherWidget(futureJson: futureJson),
     );
   }
 }
@@ -57,47 +52,60 @@ class ListWeatherWidget extends StatelessWidget {
     return FutureBuilder<WeatherJson>(
       future: futureJson,
       builder: (context, snapshot) {
-        var weatherIcon = Icons.error;
         if (snapshot.hasData) {
           print(snapshot.data!.locations[6]['locationName']);
-          switch (snapshot.data!.weatherWx) {
-            case '多雲':
-              {
-                weatherIcon = Icons.cloud;
-                break;
+          return ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              var weatherIcon = Icons.error;
+              var temp = snapshot.data!.locations[index];
+              switch (temp['weatherElement'][1]['time'][0]['elementValue'][0]
+                  ['value']) {
+                case '多雲':
+                  {
+                    weatherIcon = Icons.cloud;
+                    break;
+                  }
+                case '晴':
+                  {
+                    weatherIcon = Icons.wb_sunny;
+                    break;
+                  }
+                case '短暫陣雨':
+                  {
+                    weatherIcon = Icons.grain;
+                    break;
+                  }
+                case '短暫雨':
+                  {
+                    weatherIcon = Icons.grain;
+                    break;
+                  }
+                default:
+                  {
+                    //print(snapshot.data!.weatherWx);
+                    break;
+                  }
               }
-            case '晴':
-              {
-                weatherIcon = Icons.wb_sunny;
-                break;
-              }
-            case '短暫陣雨':
-              {
-                weatherIcon = Icons.grain;
-                break;
-              }
-            default:
-              {
-                //print(snapshot.data!.weatherWx);
-                break;
-              }
-          }
-          return Column(
-            children: [
-              ListTile(
+              return ListTile(
                 leading: Icon(weatherIcon),
                 title: Text('新北市' +
-                    snapshot.data!.name +
+                    temp['locationName'] +
                     ' 現在' +
-                    snapshot.data!.weatherWx),
+                    temp['weatherElement'][1]['time'][0]['elementValue'][0]
+                        ['value']),
                 subtitle: Text('降雨機率' +
-                    snapshot.data!.rainyValue +
-                    '%、' +
-                    '溫度' +
-                    snapshot.data!.temperature +
-                    '度'),
-              ),
-            ],
+                    temp['weatherElement'][0]['time'][0]['elementValue'][0]
+                        ['value'] +
+                    '%'),
+                trailing: Text(
+                  temp['weatherElement'][3]['time'][0]['elementValue'][0]
+                          ['value'] +
+                      '°C',
+                  style: TextStyle(fontSize: 20),
+                ),
+              );
+            },
           );
         } else if (snapshot.hasError) {
           return Center(child: Text('網路連線失敗'));

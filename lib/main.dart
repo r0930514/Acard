@@ -141,8 +141,8 @@ class HomeMenu extends StatelessWidget {
           child: Column(
             children: [
               const ListTile(
-                leading: Icon(Icons.looks_5),
-                title: Text('Page_5'),
+                leading: Icon(Icons.masks_outlined),
+                title: Text('武漢肺炎全球確診資訊'),
                 subtitle: Text('未完成'),
               ),
               TextButton(

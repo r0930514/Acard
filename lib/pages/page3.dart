@@ -54,58 +54,62 @@ class ListWeatherWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print(snapshot.data!.locations[6]['locationName']);
-          return ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              var weatherIcon = Icons.error;
-              var temp = snapshot.data!.locations[index];
-              switch (temp['weatherElement'][1]['time'][0]['elementValue'][0]
-                  ['value']) {
-                case '多雲':
-                  {
-                    weatherIcon = Icons.cloud;
-                    break;
-                  }
-                case '晴':
-                  {
-                    weatherIcon = Icons.wb_sunny;
-                    break;
-                  }
-                case '短暫陣雨':
-                  {
-                    weatherIcon = Icons.grain;
-                    break;
-                  }
-                case '短暫雨':
-                  {
-                    weatherIcon = Icons.grain;
-                    break;
-                  }
-                default:
-                  {
-                    //print(snapshot.data!.weatherWx);
-                    break;
-                  }
-              }
-              return ListTile(
-                leading: Icon(weatherIcon),
-                title: Text('新北市' +
-                    temp['locationName'] +
-                    ' 現在' +
-                    temp['weatherElement'][1]['time'][0]['elementValue'][0]
-                        ['value']),
-                subtitle: Text('降雨機率' +
-                    temp['weatherElement'][0]['time'][0]['elementValue'][0]
-                        ['value'] +
-                    '%'),
-                trailing: Text(
-                  temp['weatherElement'][3]['time'][0]['elementValue'][0]
-                          ['value'] +
-                      '°C',
-                  style: TextStyle(fontSize: 20),
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text('於 ' +
+                      snapshot.data!.locations[0]['weatherElement'][1]['time']
+                          [0]['startTime'] +
+                      ' 資料更新'),
                 ),
-              );
-            },
+              ),
+              Divider(),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: snapshot.data!.locations.length,
+                  itemBuilder: (context, index) {
+                    var weatherIcon = Icons.error;
+                    var temp = snapshot.data!.locations[index];
+                    switch (temp['weatherElement'][1]['time'][0]['elementValue']
+                        [0]['value']) {
+                      case '多雲':
+                        {
+                          weatherIcon = Icons.cloud;
+                          break;
+                        }
+                      case '晴':
+                        {
+                          weatherIcon = Icons.wb_sunny;
+                          break;
+                        }
+                      case '短暫陣雨':
+                        {
+                          weatherIcon = Icons.grain;
+                          break;
+                        }
+                      case '短暫雨':
+                        {
+                          weatherIcon = Icons.grain;
+                          break;
+                        }
+                      case '午後短暫雷陣雨':
+                        {
+                          weatherIcon = Icons.bolt;
+                          break;
+                        }
+                      default:
+                        {
+                          //print(snapshot.data!.weatherWx);
+                          break;
+                        }
+                    }
+                    return ListCard(weatherIcon: weatherIcon, temp: temp);
+                  },
+                ),
+              ),
+            ],
           );
         } else if (snapshot.hasError) {
           return Center(child: Text('網路連線失敗'));
@@ -116,6 +120,41 @@ class ListWeatherWidget extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ListCard extends StatelessWidget {
+  const ListCard({
+    Key? key,
+    required this.weatherIcon,
+    required this.temp,
+  }) : super(key: key);
+
+  final IconData weatherIcon;
+  final temp;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            onTap: () {},
+            leading: Icon(weatherIcon),
+            title: Text(temp['locationName']),
+            subtitle: Text('降雨機率' +
+                temp['weatherElement'][0]['time'][0]['elementValue'][0]
+                    ['value'] +
+                '%'),
+            trailing: Text(
+              temp['weatherElement'][3]['time'][0]['elementValue'][0]['value'] +
+                  '°C',
+              style: TextStyle(fontSize: 20),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

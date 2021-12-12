@@ -2,7 +2,6 @@ import 'pages/page1.dart';
 import 'pages/page2.dart';
 import 'pages/page3.dart';
 import 'pages/page4.dart';
-import 'pages/page5.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -137,27 +136,7 @@ class HomeMenu extends StatelessWidget {
             ],
           ),
         ),
-        Card(
-          child: Column(
-            children: [
-              const ListTile(
-                leading: Icon(Icons.masks_outlined),
-                title: Text('武漢肺炎全球確診資訊'),
-                subtitle: Text('未完成'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Page5()));
-                },
-                child: Text('跳轉至Page_5'),
-              ),
-              SizedBox(
-                height: 10,
-              )
-            ],
-          ),
-        ),
+        
       ],
     );
   }

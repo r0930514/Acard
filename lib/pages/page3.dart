@@ -9,6 +9,7 @@ class Page3 extends StatefulWidget {
   _Page3State createState() => _Page3State();
 }
 
+//Fetch Data Fun
 Future<WeatherJson> getJson() async {
   final response = await http.get(Uri.parse(
     'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-069?Authorization=CWB-3055F66C-7B3F-47A8-8325-934D38EF2A4E',
@@ -54,7 +55,7 @@ class ListWeatherWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return RefreshIndicator(
-            onRefresh: () => futureJson,
+            onRefresh: () => getJson(),
             child: Column(
               children: [
                 Padding(
@@ -73,44 +74,7 @@ class ListWeatherWidget extends StatelessWidget {
                     itemBuilder: (context, index) {
                       var weatherIcon = Icons.error;
                       var temp = snapshot.data!.locations[index];
-                      switch (temp['weatherElement'][1]['time'][0]
-                          ['elementValue'][0]['value']) {
-                        case '多雲':
-                          {
-                            weatherIcon = Icons.cloud;
-                            break;
-                          }
-                        case '晴':
-                          {
-                            weatherIcon = Icons.wb_sunny;
-                            break;
-                          }
-                        case '短暫陣雨':
-                          {
-                            weatherIcon = Icons.grain;
-                            break;
-                          }
-                        case '短暫雨':
-                          {
-                            weatherIcon = Icons.grain;
-                            break;
-                          }
-                        case '午後短暫雷陣雨':
-                          {
-                            weatherIcon = Icons.bolt;
-                            break;
-                          }
-                        case '陰':
-                          {
-                            weatherIcon = Icons.wb_cloudy;
-                            break;
-                          }
-                        default:
-                          {
-                            //print(snapshot.data!.weatherWx);
-                            break;
-                          }
-                      }
+                      weatherIcon=topicon(temp['weatherElement'][1]['time'][0]['elementValue'][0]['value']);                    
                       return ListCard(weatherIcon: weatherIcon, temp: temp);
                     },
                   ),

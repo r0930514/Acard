@@ -108,7 +108,7 @@ class _Page1State extends State<Page1> {
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.green,
-        brightness: Brightness.dark,
+        //brightness: Brightness.dark,
         title: Text('奇數偶數分辨器'),
         actions: [
           IconButton(
